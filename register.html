@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="login.css">
+  <title>Registration page</title>
+</head>
+<body>
+  <header class="">
+    <div>
+      <nav class="flex bg-white">
+        <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+          <div class="relative flex h-16 items-center justify-between">
+
+            <div class="absolute inset-y-0 right-0 flex items-center sm:hidden">
+              <!-- Menu icon -->
+              <button class="menu-icon inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-expanded="false">
+                <span class="sr-only">Open main menu</span>
+                <!-- Icon when menu is closed. -->
+                <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+              </button>
+            </div>
+            <div class="items-center">
+              <a href="#"><img src="/images-logIn/logo-SmartBin.png" class="h-8 w-auto" alt="logo"></a>
+            </div>
+            <div id="nav-links" class="nav-links">
+              <ul class="flex justify-center align-center">
+                <li><a href="#" class="text-black hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Home</a></li>
+                <li><a href="#" class="text-black hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Services</a></li>
+                <li><a href="#" class="text-black hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Projects</a></li>
+                <li><a href="#" class="text-black hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Contact</a></li>
+              </ul>
+            </div>
+            <div class="sm:col-span-2 flex">
+              <input type="text" placeholder="Search" class="block w-2/4 rounded-md border-0 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              <button type="submit">Search</button>
+            </div>
+          </div>
+          </div>
+        </div>
+
+       
+      </nav>
+    </div>
+    <div>
+      <h2>Request a Pickup</h2>
+    </div>
+  </header>
+
+  <section>
+    <div class="container">
+      <div class="form">
+        <h2>Sign Up</h2>
+        <form action="login.php" method="POST" id="registrationForm">
+          <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <div class="sm:col-span-3">
+              <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900">First Name<span class="required-asterisk">*</span></label>
+              <input type="text" name="first-name" id="email" placeholder="Enter your first/given name" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            </div>
+            <div class="sm:col-span-3">
+              <label for="first-name">Last Name<span class="required-asterisk">*</span></label>
+              <input type="text" name="last-name" id="email" placeholder="Enter your last/family name" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            </div>
+          </div>
+          <div class="sm:col-span-4">
+            <label for="email">Email<span class="required-asterisk">*</span></label>
+            <input type="email" id="email" placeholder="Email" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+        </div>
+        <div class="sm:col-span-3">
+          <label for="password">Password<span class="required-asterisk">*</span></label>
+          <input type="password" id="password" placeholder="Password" minlength="10" required class="form-control block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+      </div>
+      <div class="form-group col-md-6">
+          <label for="confirmPassword">Confirm Password<span class="required-asterisk">*</span></label>
+          <input type="password" id="confirmPassword" placeholder="Password" required class="form-control block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+          <span class="error-message" id="passwordError">Passwords do not match</span>
+      </div>
+    <div>
+      <div class="form-control">
+        <label for="province">Province:</label>
+        <select id="province" class="form-control" required>
+            <option selected disabled value="">Choose your province<span class="required-asterisk">*</span></option>
+            <option value="Province 1">Kigali City</option>
+            <option value="Province 2">North</option>
+            <option value="Province 3">South</option>
+            <option value="Province 4">East</option>
+            <option value="Province 5">West</option>
+        </select>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="city">District:</label>
+      <select id="city" class="form-control" required>
+          <option selected disabled value="">Choose your district</option>
+      </select>
+  </div>
+    <div class="form-control">
+      <label for="street">Street Address<span class="required-asterisk">*</span></label>
+      <input type="text" id="street" placeholder="Street Address" required class="form-control block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+  </div>
+    </div>
+          <button type="submit" name="signIn">Register</button>
+        </form>
+      </div>
+      <p>Already have an account? <a href="login.html">Log In</a></p>
+      
+    </div>
+  
+
+    <script src="register.js"></script>
+</body>
+</html>
