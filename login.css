@@ -1,0 +1,60 @@
+body {
+  font-family: Arial, sans-serif;
+}
+.header {
+  position: relative;
+  height: 300px;
+}
+.header-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('/images-logIn/jas-min-5Wfttm2CjeI-unsplash.jpg') no-repeat center center;
+  background-size: cover;
+}
+.header-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 128, 0, 0.5); /* Green overlay */
+}
+.navbar-brand img {
+  width: 50px;
+  height: auto;
+}
+
+.header-content {
+  position: relative;
+  z-index: 1;
+  color: white;
+  text-align: center;
+  padding-top: 100px;
+}
+
+.navbar-nav {
+  flex-direction: row;
+
+}
+.nav-item {
+  padding-left: 20px;
+}
+.nav-item .nav-link {
+  color: black;
+}
+.header-content {
+  position: relative;
+  z-index: 1;
+  color: white;
+  text-align: center;
+  padding-top: 100px;
+}
+.form-container {
+  margin-top: -100px;
+  padding: 30px;
+  background: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
