@@ -7,6 +7,10 @@ header {
   height: 30rem;
 }
 
+.logo {
+  float: left;
+}
+
 
 .error-message {
   color: red;
@@ -21,17 +25,28 @@ header {
   display: none;
 }
 
-.nav-links {
+#nav-links {
   
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  margin: 50px auto;
+}
+
+.register-button:hover {
+  background-color: darkgreen;
 }
 
 /*menu-icon*/
 @media (max-width: 678px) {
   .nav-links {
     display: none;
-    background-color: blue;
+    
   }
   .menu-icon {
-    display: block;
+   display: block;
   }
 }

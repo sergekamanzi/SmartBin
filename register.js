@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 document.getElementById('menu-icon').addEventListener('click', function() {
   var navLinks = document.getElementById('nav-links');
-  if (navLinks.style.display === 'none' || navLinks.style.display === '') {
+  if (navLinks.style.display === 'none') {
     navLinks.style.display = 'block';
   } else {
     navLinks.style.display = 'none';

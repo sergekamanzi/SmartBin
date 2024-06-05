@@ -9,79 +9,94 @@
 </head>
 <body>
   <header class="">
-    <div>
-      <nav class="flex bg-white">
-        <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-          <div class="relative flex h-16 items-center justify-between">
+      <nav class="relative flex bg-white">
+        <div class="mx-auto max-w-px-2 sm:px-6 lg:px-8">
+          <div class=" flex h-16 items-center">
 
             <div class="absolute inset-y-0 right-0 flex items-center sm:hidden">
               <!-- Menu icon -->
-              <button class="menu-icon inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-expanded="false">
+              <button id="menu-icon" class="menu-icon inline-flex items-center justify-center p-2 ml-8 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-expanded="false">
                 <span class="sr-only">Open main menu</span>
                 <!-- Icon when menu is closed. -->
                 <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                 </svg>
+                   <!--
+            Icon when menu is open.
+
+            Menu open: "block", Menu closed: "hidden"
+          -->
+          <svg id="menu-icon" class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
               </button>
             </div>
-            <div class="items-center">
-              <a href="#"><img src="/images-logIn/logo-SmartBin.png" class="h-8 w-auto" alt="logo"></a>
+            <!-- logo -->
+            <div class="absolute left-0 logo mx-5">
+              <a href="home.html"><img src="/images-logIn/logo-SmartBin.png" class="h-8 w-auto" alt="logo"></a>
             </div>
-            <div id="nav-links" class="nav-links">
-              <ul class="flex justify-center align-center">
-                <li><a href="#" class="text-black hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Home</a></li>
-                <li><a href="#" class="text-black hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Services</a></li>
-                <li><a href="#" class="text-black hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Projects</a></li>
-                <li><a href="#" class="text-black hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Contact</a></li>
+            <div id="nav-links" class="nav-links flex">
+              <ul class="flex justify-center align-center space-x-8">
+                <li><a href="#" class="text-black hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-md font-medium">Home</a></li>
+                <li><a href="#" class="text-black hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-md font-medium">Services</a></li>
+                <li><a href="#" class="text-black hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-md font-medium">Projects</a></li>
+                <li><a href="#" class="text-black hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-md font-medium">Contact</a></li>
               </ul>
             </div>
-            <div class="sm:col-span-2 flex">
-              <input type="text" placeholder="Search" class="block w-2/4 rounded-md border-0 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-              <button type="submit">Search</button>
-            </div>
+            <div class="sm:col-span-2 flex ml-5">
+              <input type="text" placeholder="Search" class="block w-2/3 rounded-md border-0 p-1 m-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              <button type="submit" class="bg-blue">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+              </button>          
+              </div>
           </div>
           </div>
         </div>
-
-       
       </nav>
-    </div>
-    <div>
-      <h2>Request a Pickup</h2>
+    <div class="flex flex:col">
+      <div class="p-3 mx-8">
+        <h1 class="text-white text-6xl font-bold mt-40">SmartBin</h1>
+        <p class="text-green-400 text-3xl font-bold mt-4">ZERO WASTE</p>
+      </div>
+      <div class="justify-end">
+        <!-- <h2 class="text-white text-4xl font-bold mt-48">Request a Pickup</h2> -->
+      </div>
     </div>
   </header>
 
-  <section>
-    <div class="container">
+  <section class="form-container bg-gray-100 flex items-center justify-center align-center mt-50 w-3/4 p-3">
+    <div class="w-3/4">
       <div class="form">
-        <h2>Sign Up</h2>
+        <h2 class="text-green-500 font-bold text-3xl text-center">Sign Up</h2>
         <form action="login.php" method="POST" id="registrationForm">
           <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-            <div class="sm:col-span-3">
+            <div class="sm:col-span-3 my-3">
               <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900">First Name<span class="required-asterisk">*</span></label>
-              <input type="text" name="first-name" id="email" placeholder="Enter your first/given name" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              <input type="text" name="first-name" id="email" placeholder="Enter your first/given name" required class="block w-full rounded-md border-0 pl-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
             </div>
-            <div class="sm:col-span-3">
+            <div class="sm:col-span-3 my-3">
               <label for="first-name">Last Name<span class="required-asterisk">*</span></label>
-              <input type="text" name="last-name" id="email" placeholder="Enter your last/family name" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              <input type="text" name="last-name" id="email" placeholder="Enter your last/family name" required class="block w-full rounded-md border-0 pl-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
             </div>
           </div>
-          <div class="sm:col-span-4">
+          <div class="sm:col-span-4 my-3">
             <label for="email">Email<span class="required-asterisk">*</span></label>
-            <input type="email" id="email" placeholder="Email" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            <input type="email" id="email" placeholder="Email" required class="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
         </div>
-        <div class="sm:col-span-3">
+        <div class="sm:col-span-3 my-3">
           <label for="password">Password<span class="required-asterisk">*</span></label>
-          <input type="password" id="password" placeholder="Password" minlength="10" required class="form-control block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+          <input type="password" id="password" placeholder="Password" minlength="10" required class="form-control block w-full rounded-md border-0 pl-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
       </div>
-      <div class="form-group col-md-6">
+      <div class="my-3">
           <label for="confirmPassword">Confirm Password<span class="required-asterisk">*</span></label>
-          <input type="password" id="confirmPassword" placeholder="Password" required class="form-control block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+          <input type="password" id="confirmPassword" placeholder="Password" required class="form-control block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
           <span class="error-message" id="passwordError">Passwords do not match</span>
       </div>
-    <div>
-      <div class="form-control">
-        <label for="province">Province:</label>
+    <div class="mt-10 flex md:flex-row md:my-10 w-3/4 flex-col my-4">
+      <div class="mr-3">
+        <label for="province">Province<span class="required-asterisk">*</span></label>
         <select id="province" class="form-control" required>
             <option selected disabled value="">Choose your province<span class="required-asterisk">*</span></option>
             <option value="Province 1">Kigali City</option>
@@ -91,24 +106,65 @@
             <option value="Province 5">West</option>
         </select>
     </div>
-    <div class="form-group col-md-6">
-      <label for="city">District:</label>
+    <div class="mx-3">
+      <label for="city">District</label>
       <select id="city" class="form-control" required>
           <option selected disabled value="">Choose your district</option>
       </select>
   </div>
-    <div class="form-control">
+    <div class="mx-3">
       <label for="street">Street Address<span class="required-asterisk">*</span></label>
-      <input type="text" id="street" placeholder="Street Address" required class="form-control block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+      <input type="text" id="street" placeholder="Street Address" required class="form-control block w-full rounded-md border-0 pl-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
   </div>
     </div>
-          <button type="submit" name="signIn">Register</button>
+    <div class="justify-center items-center align-center flex">
+      <button type="submit" name="signIn" class="rounded-md border-0 p-1.5 m-3 items-center bg-green-500 w-44 font-medium hover:underline">Register</button>
+    </div>
         </form>
       </div>
-      <p>Already have an account? <a href="login.html">Log In</a></p>
+      <p class="my-5 text-center">Already have an account? <a href="login.html" target="_blank" class="text-green-500 hover:underline">Log In</a></p>
       
     </div>
   
+</section>
+ <!-- Footer Section -->
+ <footer class="bg-green-500 text-white p-4">
+  <div class="container mx-auto flex flex-row items-center justify-evenly">
+      <!-- Quick Links -->
+      <div class="flex flex-col items-center space-x-3 mb-4">
+        <h2 class="font-medium text-xl mb-1">Quick Links</h2>
+          <a href="#home" class="hover:bg-gray-700 hover:text-white rounded-md px-3">Home</a>
+          <a href="#about" class="hover:bg-gray-700 hover:text-white rounded-md px-3">Services</a>
+          <a href="#contact" class="hover:bg-gray-700 hover:text-white rounded-md px-3">Contact</a>
+      </div>
+
+      <!-- Social Media Icons -->
+      <div class="flex flex-col items-center space-x-3 mb-4">
+        <h2 class="font-medium text-xl mb-2">Socials</h2>
+          <a href="https://facebook.com" target="_blank" class="hover:bg-gray-700 hover:text-white rounded-md px-3">Facebook</a>
+          <a href="https://instagram.com" target="_blank" class="hover:bg-gray-700 hover:text-white rounded-md px-3">Instagram</a>
+          <a href="https://linkedin.com" target="_blank" class="hover:bg-gray-700 hover:text-white rounded-md px-3">LinkedIn</a>
+      </div>
+
+      <div class="flex flex-col items-center space-x-3 mb-3">
+          <h2 class="font-medium text-xl mb-4">Location</h2>
+            <p>KN 132 St</p>
+            <p>ALU</p>
+          <p>Kigali, Rwanda</p>
+      </div>
+  </div>
+
+     
+      
+  </div>
+  <div class="flex flex-col">
+     <!-- Copyright Statement -->
+  <div class="w-full border-t border-white mt-4 mb-4"></div>
+  <div class="text-center mt-2 p-3">
+      &copy; 2024 SmartBin. All rights reserved.
+  </div>
+  </div>
+</footer>
 
     <script src="register.js"></script>
 </body>
