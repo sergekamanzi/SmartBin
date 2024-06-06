@@ -142,13 +142,13 @@ export default function Navbar() {
           </a>
           <div className='flex items-center justify-between gap-10 -mt-2'>
             <a
-              href="#"
+              href="/Signup"
               className="rounded-md bg-[#37af65] px-2 py-2 sm:text-sm md:text-sm lg:text-sm xl:text-sm font-semibold text-white shadow-sm hover:bg-[#468d5f] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#37af65]"
             >
               Get started
             </a>
             <a
-              href="#"
+              href="/login"
               className="text-sm font-semibold leading-6 text-gray-50"
             >
               Login
