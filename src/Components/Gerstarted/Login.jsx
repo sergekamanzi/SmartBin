@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
 
   const handleChange = (e) => {
@@ -14,42 +14,79 @@ const LoginForm = () => {
       [name]: value,
     });
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const { email, password } = formData;
 
     try {
-      const response = await axios.post('http://localhost:5000/api/users/login', {
-        email,
-        password,
-      });
-      console.log('Login successful:', response.data);
+      const response = await axios.post(
+        "http://localhost:5000/api/users/login",
+        {
+          email,
+          password,
+        }
+      );
+      console.log("Login successful:", response.data);
       // Store the token in localStorage or cookies
-      localStorage.setItem('token', response.data.token);
+      localStorage.setItem("token", response.data.token);
     } catch (error) {
-      console.error('Error logging in:', error.response.data);
+      console.error("Error logging in:", error.response.data);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg">
-      <h2 className="text-2xl font-semibold mb-6">Login</h2>
+    <form
+      onSubmit={handleSubmit}
+      className=" w-1/2 bg-gray-50 p-8 rounded-l-3xl shadow-lg"
+    >
+      <a href="/">
+        <p className="text-3xl text-center font-bold">
+          Smart <span className="font-light ">Bin</span>{" "}
+          <span className="text-[#37af65] text-7xl -ml-1 ">.</span>{" "}
+        </p>
+      </a>
+      <h1 className="text-3xl my-6 text-center">Welcome Back</h1>
+      <h2 className="text-xl font-light my-6 text-center">Login with email</h2>
 
       <label className="block mb-4">
-        <span className="block text-gray-700">Email Address</span>
-        <input type="email" name="email" value={formData.email} onChange={handleChange} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" placeholder="example@example.com" />
+        <input
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          className="mt-1 block w-3/4 rounded-md border-gray-300 shadow-sm py-2 px-2 my-6 "
+          placeholder="Email"
+        />
       </label>
 
       <label className="block mb-4">
-        <span className="block text-gray-700">Password</span>
-        <input type="password" name="password" value={formData.password} onChange={handleChange} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" placeholder="••••••••" />
+        <input
+          type="password"
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+          className="mt-1 block w-3/4 rounded-md my-6 border-gray-300 shadow-sm py-2 px-2"
+          placeholder="Password"
+        />
       </label>
+      <a href="" className="underline block mb-4 hover:text-[#37af65]">
+        Forgot Password
+      </a>
 
-      <button type="submit" className="w-full bg-indigo-500 text-white py-2 rounded-lg hover:bg-indigo-600">
+      <button
+        type="submit"
+        className="w-3/4 bg-[#37af65] text-white py-2 rounded-lg hover:bg-[#59a173]"
+      >
         Login
       </button>
+      <div className="flex gap-2 mt-5 ml-16 ">
+        <p>Don't have ana account yet?</p>
+        <a href="/signup" className="underline block mb-4 hover:text-[#37af65]">
+        Signup
+      </a>
+      </div>
     </form>
   );
 };

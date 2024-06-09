@@ -91,117 +91,107 @@ const Signup = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg"
+      className="min-w-min w-1/2  bg-[#fff] p-8 rounded-r-3xl shadow-2xl"
     >
-      <h2 className="text-2xl font-semibold mb-6">Sign Up</h2>
+      <h2 className="text-5xl font-bold mb-6 ">Create account</h2>
 
       {/* Form fields here */}
-      <label className="block mb-4">
-        <span className="block text-gray-700">Full Name</span>
-        <input
-          type="text"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-          placeholder="John Doe"
-        />
-      </label>
-      <label className="block mb-4">
-        <span className="block text-gray-700">Email Address</span>
-        <input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-          placeholder="example@example.com"
-        />
-      </label>
-      <label className="block mb-4">
-        <span className="block text-gray-700">Password</span>
-        <input
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-          placeholder="••••••••"
-        />
-      </label>
-      <label className="block mb-4">
-        <span className="block text-gray-700">Confirm Password</span>
-        <input
-          type="password"
-          name="confirmPassword"
-          value={formData.confirmPassword}
-          onChange={handleChange}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-          placeholder="••••••••"
-        />
-      </label>
-      <label className="block mb-4">
-        <span className="block text-gray-700">Phone Number</span>
-        <input
-          type="text"
-          name="phoneNumber"
-          value={formData.phoneNumber}
-          onChange={handleChange}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-          placeholder="(123) 456-7890"
-        />
-      </label>
-      <label className="block mb-4">
-        <span className="block text-gray-700">Address</span>
-        <input
-          type="text"
-          name="address"
-          value={formData.address}
-          onChange={handleChange}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-          placeholder="123 Main St"
-        />
-      </label>
-      <label className="block mb-4">
-        <span className="block text-gray-700">City</span>
-        <input
-          type="text"
-          name="city"
-          value={formData.city}
-          onChange={handleChange}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-          placeholder="City"
-        />
-      </label>
-      <label className="block mb-4">
-        <span className="block text-gray-700">State</span>
-        <input
-          type="text"
-          name="state"
-          value={formData.state}
-          onChange={handleChange}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-          placeholder="State"
-        />
-      </label>
-      <label className="block mb-4">
-        <span className="block text-gray-700">Postal Code</span>
-        <input
-          type="text"
-          name="postalCode"
-          value={formData.postalCode}
-          onChange={handleChange}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-          placeholder="Postal Code"
-        />
-      </label>
+      <div className="flex gap-5">
+        <label className="block mb-4">
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            className="mt-1 block w-full rounded-md bg-[#eee] shadow-sm py-2 pl-2"
+            placeholder="Full name"
+          />
+        </label>
+        <label className="block mb-4">
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            className="mt-1  w-full rounded-md bg-[#eee] shadow-sm  pl-2 py-2"
+            placeholder="Email"
+          />
+        </label>
+      </div>
+      <div className="flex gap-5 ">
+        <label className="block mb-4">
+          <input
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            className="mt-1 block w-full rounded-md bg-[#eee] shadow-sm py-2 pl-2"
+            placeholder="Password"
+          />
+        </label>
+        <label className="block mb-4">
+          <input
+            type="password"
+            name="confirmPassword"
+            value={formData.confirmPassword}
+            onChange={handleChange}
+            className="mt-1 block w-full rounded-md bg-[#eee] shadow-sm py-2 pl-2"
+            placeholder="Confirm Password"
+          />
+        </label>
+      </div>
+      <div className="flex gap-5 ">
+        <label className="block mb-4">
+          <input
+            type="text"
+            name="phoneNumber"
+            value={formData.phoneNumber}
+            onChange={handleChange}
+            className="mt-1 block w-full rounded-md bg-[#eee] shadow-sm py-2 pl-2"
+            placeholder="Phone Number"
+          />
+        </label>
+        <label className="block mb-4">
+          <input
+            type="text"
+            name="address"
+            value={formData.address}
+            onChange={handleChange}
+            className="mt-1 block w-full rounded-md bg-[#eee] shadow-sm py-2 pl-2"
+            placeholder="Adress"
+          />
+        </label>
+      </div>
+      <div className="flex gap-5 ">
+        <label className="block mb-4">
+          <input
+            type="text"
+            name="city"
+            value={formData.city}
+            onChange={handleChange}
+            className="mt-1 block w-full rounded-md bg-[#eee] shadow-sm py-2 pl-2"
+            placeholder="City"
+          />
+        </label>
+        <label className="block mb-4">
+          <input
+            type="text"
+            name="state"
+            value={formData.state}
+            onChange={handleChange}
+            className="mt-1 block w-full rounded-md bg-[#eee] shadow-sm py-2 pl-2"
+            placeholder="State"
+          />
+        </label>
+      </div>
+
       <label className="block mb-4">
         <span className="block text-gray-700">User Type</span>
         <select
           name="userType"
           value={formData.userType}
           onChange={handleChange}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+          className="mt-1 block w-1/2 rounded-md bg-[#eee] shadow-sm py-2 pl-2"
         >
           <option value="household">Household User</option>
           <option value="waste-collection">
@@ -211,28 +201,28 @@ const Signup = () => {
       </label>
       {formData.userType === "waste-collection" && (
         <>
-          <label className="block mb-4">
-            <span className="block text-gray-700">Company Name</span>
-            <input
-              type="text"
-              name="companyName"
-              value={formData.companyName}
-              onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-              placeholder="Company Name"
-            />
-          </label>
-          <label className="block mb-4">
-            <span className="block text-gray-700">Service Area</span>
-            <input
-              type="text"
-              name="serviceArea"
-              value={formData.serviceArea}
-              onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-              placeholder="Service Area"
-            />
-          </label>
+          <div className="flex gap-5 ">
+            <label className="block mb-4">
+              <input
+                type="text"
+                name="companyName"
+                value={formData.companyName}
+                onChange={handleChange}
+                className="mt-1 block w-full rounded-md bg-[#eee] shadow-sm py-2 pl-2"
+                placeholder="Company Name"
+              />
+            </label>
+            <label className="block mb-4">
+              <input
+                type="text"
+                name="serviceArea"
+                value={formData.serviceArea}
+                onChange={handleChange}
+                className="mt-1 block w-full rounded-md bg-[#eee] shadow-sm py-2 pl-2"
+                placeholder="Service Area"
+              />
+            </label>
+          </div>
         </>
       )}
       <label className="block mb-4">
@@ -249,7 +239,7 @@ const Signup = () => {
       </label>
       <button
         type="submit"
-        className="w-full bg-indigo-500 text-white py-2 rounded-lg hover:bg-indigo-600"
+        className="w-3/4 bg-[#37af65] text-white py-2 rounded-lg hover:bg-[#3b684c]"
       >
         Sign Up
       </button>

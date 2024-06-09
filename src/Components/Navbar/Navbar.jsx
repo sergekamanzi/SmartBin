@@ -65,7 +65,7 @@ export default function Navbar() {
           <a href="#" className="-mt-5 p-1.5 ">
             <span className="sr-only"></span>
             <p className="text-2xl font-bold">
-              Smart <span className="font-normal ">Bin</span>{' '}
+              Smart <span className="font-light ">Bin</span>{' '}
               <span className="text-[#37af65] text-5xl -ml-1 ">.</span>{' '}
             </p>
           </a>
