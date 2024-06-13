@@ -1,5 +1,5 @@
 import React from 'react'
-import projectImage from "../../assets/YKSR9RK.jpg";
+import projectImage from "../../../assets/YKSR9RK.jpg";
 
 
 const Sidelogin = () => {

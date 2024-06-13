@@ -2,7 +2,7 @@ import React from 'react'
 import LoginForm from './Login'
 import Sidelogin from './sidelogin'
 
-const Singin = () => {
+const Signin = () => {
   return (
     <div className='flex p-20 bg-[#37af65]'>
         <LoginForm/>
@@ -11,4 +11,4 @@ const Singin = () => {
   )
 }
 
-export default Singin
+export default Signin

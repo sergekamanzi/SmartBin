@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { registerUser } from "../Apis/api";
+import { registerUser } from "../../Apis/api";
 import Swal from "sweetalert2";
 
 const Signup = () => {
@@ -75,7 +75,7 @@ const Signup = () => {
         timer: 3000,
       });
 
-      // Redirect to login page after successful registration
+      
       navigate("/login");
     } catch (error) {
       console.error("Error registering user:", error);
