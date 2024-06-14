@@ -215,7 +215,7 @@ const Signup = () => {
             <label className="block mb-4">
               <input
                 type="text"
-                name="serviceArea"
+                name="serviceArea District"
                 value={formData.serviceArea}
                 onChange={handleChange}
                 className="mt-1 block w-full rounded-md bg-[#eee] shadow-sm py-2 pl-2"

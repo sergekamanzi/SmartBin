@@ -1,6 +1,5 @@
 import React from 'react'
 import SidebarHousehold from '../../SidebarHousehold'
-import HeaderHousehold from '../../HeaderHousehold'
 import WasteCollectionSchedule from './Wasteshedule'
 
 const Wastemerge = () => {
@@ -8,7 +7,6 @@ const Wastemerge = () => {
     <div className='flex'>
         <SidebarHousehold/>
         <div>
-            <HeaderHousehold/>
             <WasteCollectionSchedule/>
         </div>
     </div>

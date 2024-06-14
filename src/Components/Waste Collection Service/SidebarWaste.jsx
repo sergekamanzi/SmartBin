@@ -44,7 +44,7 @@ function SidebarWaste() {
           )}
         </button>
         <div>
-          <a href="/home">
+          <a href="/dashboard">
             {isMinimized ? (
               <p className="text-3xl text-zinc-50 font-bold mt-5 mb-20">
                 SB <span className="text-[#37af65] -ml-1">.</span>

@@ -9,7 +9,7 @@ const LoginForm = () => {
     password: "",
   });
 
-  const navigate = useNavigate(); // Get the navigate function from the useNavigate hook
+  const navigate = useNavigate(); 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,26 +26,23 @@ const LoginForm = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/users/login",
+        'http://localhost:5000/api/users/login',
         {
           email,
           password,
         }
       );
 
-      // Store the token in localStorage
-      localStorage.setItem("token", response.data.token);
+      console.log('Login successful:', response.data);
+      localStorage.setItem('token', response.data.token);
 
-      // Navigate to the home page
-      navigate("/home");
-
+      if (response.data.userType === 'waste-collection') {
+        navigate('/dashboard');
+      } else if (response.data.userType === 'household') {
+        navigate('/home');
+      }
     } catch (error) {
-      console.error("Error logging in:", error.response.data);
-      Swal.fire({
-        icon: 'error',
-        title: 'Login Failed',
-        text: error.response.data.msg || 'Failed to login. Please try again later.',
-      });
+      console.error('Error logging in:', error.response.data);
     }
   };
 

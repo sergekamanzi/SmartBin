@@ -1,6 +1,5 @@
 import React from "react";
 import SidebarHousehold from "./SidebarHousehold";
-import Profile from "./HeaderHousehold";
 import Dashboard from "./Dashboard/Dashboard";
 import MainHousehold from "./MainHousehold";
 
@@ -10,7 +9,7 @@ const HouseholdMerge = () => {
     <div className="flex bg-[#eeeeee] ">
       <SidebarHousehold />
       <div>
-        <Profile/>
+        
         <Dashboard/>
         <MainHousehold/>
       </div>
