@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom";
 
-const HouseholdUserSignup = () => {
+const WasteCollectionServiceSignup = () => {
   const [formData, setFormData] = useState({
-    username: "",
+    serviceName: "",
+    contactPerson: "",
     email: "",
-    password: "",
-    street: "",
-    phonenumber: "", // Changed to match the state variable
+    contactPhone: "",
     district: "",
+    password: "",
+    serviceArea: "",
   });
 
   const navigate = useNavigate(); // Initialize the useNavigate hook
@@ -21,45 +22,68 @@ const HouseholdUserSignup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/api/signup/household", formData);
+      await axios.post("http://localhost:5000/api/signup/service", formData);
       alert("Account registered successfully!");
       setFormData({
-        username: "",
+        serviceName: "",
+        contactPerson: "",
         email: "",
-        password: "",
-        street: "",
-        phonenumber: "",
+        contactPhone: "",
         district: "",
+        password: "",
+        serviceArea: "",
       });
-      navigate("/login");
+
+      navigate("/login"); 
     } catch (error) {
       console.error(error);
-      alert("Failed to register household user");
+      alert("Failed to register waste collection service");
     }
   };
 
   return (
     <div className="min-w-min w-1/2  bg-[#fff] p-8 rounded-r-3xl shadow-2xl">
-      <h2 className="text-5xl font-bold mb-6">Create account</h2>
+      <h2 className="text-5xl font-bold mb-6">
+        Create account
+      </h2>
       <form onSubmit={handleSubmit}>
         <div className="flex gap-5">
           <div className="mb-4">
             <label
-              htmlFor="username"
+              htmlFor="serviceName"
               className="block text-sm font-medium text-gray-700"
             >
-              Username
+              Company Name
             </label>
             <input
               type="text"
-              id="username"
-              name="username"
-              value={formData.username}
+              id="serviceName"
+              name="serviceName"
+              value={formData.serviceName}
               onChange={handleChange}
               required
               className="mt-1  w-full rounded-md bg-[#eee] shadow-sm  pl-2 py-2"
             />
           </div>
+          <div className="mb-4">
+            <label
+              htmlFor="contactPerson"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Contact Person
+            </label>
+            <input
+              type="text"
+              id="contactPerson"
+              name="contactPerson"
+              value={formData.contactPerson}
+              onChange={handleChange}
+              required
+              className="mt-1  w-full rounded-md bg-[#eee] shadow-sm  pl-2 py-2"
+            />
+          </div>
+        </div>
+        <div className="flex gap-5">
           <div className="mb-4">
             <label
               htmlFor="email"
@@ -77,37 +101,18 @@ const HouseholdUserSignup = () => {
               className="mt-1  w-full rounded-md bg-[#eee] shadow-sm  pl-2 py-2"
             />
           </div>
-        </div>
-        <div className="flex gap-5">
           <div className="mb-4">
             <label
-              htmlFor="password"
+              htmlFor="contactPhone"
               className="block text-sm font-medium text-gray-700"
             >
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-              className="mt-1  w-full rounded-md bg-[#eee] shadow-sm  pl-2 py-2"
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              htmlFor="street"
-              className="block text-sm font-medium text-gray-700"
-            >
-              House number
+              Contact Phone
             </label>
             <input
               type="text"
-              id="street"
-              name="street"
-              value={formData.street}
+              id="contactPhone"
+              name="contactPhone"
+              value={formData.contactPhone}
               onChange={handleChange}
               required
               className="mt-1  w-full rounded-md bg-[#eee] shadow-sm  pl-2 py-2"
@@ -115,24 +120,6 @@ const HouseholdUserSignup = () => {
           </div>
         </div>
         <div className="flex gap-5">
-          <div className="mb-4">
-            <label
-              htmlFor="phonenumber"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Phone Number
-            </label>
-            <input
-              type="tel"
-              id="phonenumber"
-              name="phonenumber"
-              value={formData.phonenumber}
-              onChange={handleChange}
-              required
-              className="mt-1  w-full rounded-md bg-[#eee] shadow-sm  pl-2 py-2"
-            />
-          </div>
-
           <div className="mb-4">
             <label
               htmlFor="district"
@@ -150,19 +137,33 @@ const HouseholdUserSignup = () => {
               className="mt-1  w-full rounded-md bg-[#eee] shadow-sm  pl-2 py-2"
             />
           </div>
+          <div className="mb-4">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+              className="mt-1  w-full rounded-md bg-[#eee] shadow-sm  pl-2 py-2"
+            />
+          </div>
         </div>
         <button
           type="submit"
-          className="w-3/4 bg-[#37af65] text-white py-2 rounded-lg hover:bg-[#3b684c] mb-5"
+          className="w-3/4 bg-[#37af65] text-white py-2 rounded-lg hover:bg-[#3b684c]"
         >
           Sign Up
         </button>
-        <p>
-          Sign up as a Company? <a href="/SignupCompany">Signup</a>
-        </p>
       </form>
     </div>
   );
 };
 
-export default HouseholdUserSignup;
+export default WasteCollectionServiceSignup;

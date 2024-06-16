@@ -6,7 +6,7 @@ import { IoIosSettings } from "react-icons/io";
 import { MdAccountCircle } from "react-icons/md";
 import { FaRoute } from "react-icons/fa";
 import { CgPerformance } from "react-icons/cg";
-
+import { RiCalendarScheduleFill } from "react-icons/ri";
 function SidebarWaste() {
   const [isHovered, setIsHovered] = useState({});
   const [isActive, setIsActive] = useState({});
@@ -77,7 +77,7 @@ function SidebarWaste() {
               {!isMinimized && <h1 className="text-xl">Dashboard</h1>}
             </div>
           </Link>
-          <Link to="/RouteManagement">
+          <Link to="/schedules">
             <div
               className={`rounded-lg shadow-xl duration-500 flex items-center w-full px-5 py-2 mt-2 ${
                 isActive.schedule || isHovered.schedule
@@ -86,6 +86,21 @@ function SidebarWaste() {
               }`}
               onMouseEnter={handleMouseEnter("schedule")}
               onMouseLeave={handleMouseLeave("schedule")}
+              onClick={handleClick("schedule")}
+            >
+              <RiCalendarScheduleFill className="text-2xl w-auto mr-2" />
+              {!isMinimized && <h1 className="text-xl">Schedules</h1>}
+            </div>
+          </Link>
+          <Link to="/RouteManagement">
+            <div
+              className={`rounded-lg shadow-xl duration-500 flex items-center w-full px-5 py-2 mt-2 ${
+                isActive.route || isHovered.route
+                  ? "bg-[#38725a] text-white"
+                  : "text-[#b1b8be]"
+              }`}
+              onMouseEnter={handleMouseEnter("route")}
+              onMouseLeave={handleMouseLeave("route")}
               onClick={handleClick("schedule")}
             >
               <FaRoute className="text-2xl w-auto mr-2" />

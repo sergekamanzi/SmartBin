@@ -13,7 +13,7 @@ const Side = () => {
           </p>
         </a>
       </div>
-      <div className="text-center mt-28">
+      <div className="text-center mt-16">
         <h1 className="text-5xl font-bold">Welcome Back</h1>
         <h1 className="text-xl mt-5 font-light">
           {" "}

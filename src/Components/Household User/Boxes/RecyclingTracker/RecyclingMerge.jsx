@@ -1,13 +1,13 @@
 import React from 'react'
 import SidebarHousehold from '../../SidebarHousehold'
-import RecyclingTracker from './RecyclingTracker'
+import RecyclingDashboard from './RecyclingTracker'
 
 const RecyclingMerge = () => {
   return (
     <div className='flex'>
         <SidebarHousehold/>
         <div>
-            <RecyclingTracker/>
+            <RecyclingDashboard/>
         </div>
     </div>
   )

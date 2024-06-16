@@ -1,13 +1,13 @@
 import React from 'react'
 import SidebarHousehold from '../../SidebarHousehold'
-import WasteCollectionSchedule from './Wasteshedule'
+import ScheduleForm from './Wasteshedule'
 
 const Wastemerge = () => {
   return (
     <div className='flex'>
         <SidebarHousehold/>
         <div>
-            <WasteCollectionSchedule/>
+            <ScheduleForm/>
         </div>
     </div>
   )

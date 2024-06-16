@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
@@ -9,7 +8,7 @@ const LoginForm = () => {
     password: "",
   });
 
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,7 +25,7 @@ const LoginForm = () => {
 
     try {
       const response = await axios.post(
-        'http://localhost:5000/api/users/login',
+        'http://localhost:5000/api/login',
         {
           email,
           password,
@@ -35,14 +34,20 @@ const LoginForm = () => {
 
       console.log('Login successful:', response.data);
       localStorage.setItem('token', response.data.token);
+      localStorage.setItem('userType', response.data.userType);
+      
+      const userType = response.data.userType;
 
-      if (response.data.userType === 'waste-collection') {
+      if (userType === 'service') {
         navigate('/dashboard');
-      } else if (response.data.userType === 'household') {
+      } else if (userType === 'household') {
         navigate('/home');
+      } else {
+        navigate('/');
       }
     } catch (error) {
       console.error('Error logging in:', error.response.data);
+     
     }
   };
 

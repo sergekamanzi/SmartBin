@@ -1,129 +1,249 @@
-import React, { useState } from "react";
-import axios from "axios";
-import Swal from "sweetalert2";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const WasteCollectionSchedule = () => {
+  const [schedules, setSchedules] = useState([]);
   const [formData, setFormData] = useState({
-    address: '',
-    pickupDate: '',
-    district: '',
+    wasteType: [],
+    schedule: '',
+    latitude: null,
+    longitude: null
   });
-  const [errors, setErrors] = useState({});
+  const [editMode, setEditMode] = useState(false);
+  const [currentScheduleId, setCurrentScheduleId] = useState(null);
+
+  useEffect(() => {
+    const fetchSchedules = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get('http://localhost:5000/api/household/schedules', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        setSchedules(response.data);
+      } catch (error) {
+        console.error('Error fetching schedules:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Failed to fetch schedules. Please try again.'
+        });
+      }
+    };
+
+    fetchSchedules();
+  }, []);
+
+  // Function to fetch user's current location
+  const fetchUserLocation = () => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          latitude,
+          longitude
+        }));
+      },
+      (error) => {
+        console.error('Error getting user location:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Failed to fetch your location. Please allow location access.'
+        });
+      }
+    );
+  };
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    const { name, value, checked } = e.target;
+    if (name === 'wasteType') {
+      setFormData((prevFormData) => {
+        if (checked) {
+          return { ...prevFormData, wasteType: [...prevFormData.wasteType, value] };
+        } else {
+          return {
+            ...prevFormData,
+            wasteType: prevFormData.wasteType.filter((type) => type !== value)
+          };
+        }
+      });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newErrors = validateForm(formData);
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      return;
-    }
     try {
-      const token = localStorage.getItem('token'); // Retrieve token from localStorage
-      if (!token) {
-        throw new Error('No token found');
-      }
+      const token = localStorage.getItem('token');
+      const url = editMode
+        ? `http://localhost:5000/api/household/schedules/${currentScheduleId}`
+        : 'http://localhost:5000/api/household/schedules';
 
-      const response = await axios.post(
-        'http://localhost:5000/api/schedule',
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      const method = editMode ? 'put' : 'post';
+
+      // Include latitude and longitude in dataToSend
+      const dataToSend = {
+        ...formData
+      };
+
+      const response = await axios[method](url, dataToSend, {
+        headers: {
+          Authorization: `Bearer ${token}`
         }
-      );
-
-      console.log('Waste collection scheduled:', response.data);
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Waste collection scheduled!',
-        showConfirmButton: false,
-        timer: 2000,
       });
-      setFormData({ address: '', pickupDate: '', district: '' });
-      setErrors({});
+
+      setSchedules((prevSchedules) => {
+        if (editMode) {
+          return prevSchedules.map((schedule) =>
+            schedule._id === currentScheduleId ? response.data : schedule
+          );
+        } else {
+          return [...prevSchedules, response.data];
+        }
+      });
+
+      setFormData({ wasteType: [], schedule: '', latitude: null, longitude: null });
+      setEditMode(false);
+      setCurrentScheduleId(null);
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: 'Schedule saved successfully'
+      });
     } catch (error) {
-      console.error('Error scheduling waste collection:', error);
+      console.error('Error saving schedule:', error);
       Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: 'Failed to schedule waste collection. Please try again.',
+        text: 'Failed to save schedule. Please try again.'
       });
     }
   };
 
-  const validateForm = (data) => {
-    const newErrors = {};
-    if (!data.address) newErrors.address = "Address is required";
-    if (!data.pickupDate) newErrors.pickupDate = "Pickup Date is required";
-    if (!data.district) newErrors.district = "District is required";
-    return newErrors;
+  const handleEdit = (schedule) => {
+    setFormData({
+      wasteType: Array.isArray(schedule.wasteType) ? schedule.wasteType : [],
+      schedule: schedule.schedule,
+      latitude: schedule.latitude,
+      longitude: schedule.longitude
+    });
+    setEditMode(true);
+    setCurrentScheduleId(schedule._id);
+  };
+
+  const handleDelete = async (scheduleId) => {
+    try {
+      const token = localStorage.getItem('token');
+      await axios.delete(`http://localhost:5000/api/household/schedules/${scheduleId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      setSchedules((prevSchedules) => prevSchedules.filter((schedule) => schedule._id !== scheduleId));
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: 'Schedule deleted successfully'
+      });
+    } catch (error) {
+      console.error('Error deleting schedule:', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Failed to delete schedule. Please try again.'
+      });
+    }
   };
 
   return (
-    <div className="max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg">
-      <h2 className="text-2xl font-semibold mb-6">Schedule Waste Collection</h2>
-      <form onSubmit={handleSubmit}>
+    <div className="max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg mt-4">
+      <h2 className="text-2xl font-semibold mb-4">Waste Collection Schedules</h2>
+
+      <form onSubmit={handleSubmit} className="mb-6">
         <label className="block mb-4">
-          <span className="block text-gray-700">Pickup Date</span>
-          <input
-            type="date"
-            name="pickupDate"
-            value={formData.pickupDate}
-            onChange={handleChange}
-            className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm ${
-              errors.pickupDate ? "border-red-500" : ""
-            }`}
-          />
-          {errors.pickupDate && (
-            <span className="text-red-500 text-sm">{errors.pickupDate}</span>
-          )}
+          <span>Select Waste Types:</span>
+          <div>
+            <label className="inline-flex items-center mr-4">
+              <input
+                type="checkbox"
+                name="wasteType"
+                value="general"
+                checked={formData.wasteType.includes('general')}
+                onChange={handleChange}
+                className="form-checkbox"
+              />
+              <span className="ml-2">General</span>
+            </label>
+            <label className="inline-flex items-center mr-4">
+              <input
+                type="checkbox"
+                name="wasteType"
+                value="recyclables"
+                checked={formData.wasteType.includes('recyclables')}
+                onChange={handleChange}
+                className="form-checkbox"
+              />
+              <span className="ml-2">Recyclables</span>
+            </label>
+            <label className="inline-flex items-center">
+              <input
+                type="checkbox"
+                name="wasteType"
+                value="organic"
+                checked={formData.wasteType.includes('organic')}
+                onChange={handleChange}
+                className="form-checkbox"
+              />
+              <span className="ml-2">Organic</span>
+            </label>
+          </div>
         </label>
+
         <label className="block mb-4">
-          <span className="block text-gray-700">District</span>
-          <input
-            type="text"
-            name="district"
-            value={formData.district}
+          <span>Schedule:</span>
+          <select
+            name="schedule"
+            value={formData.schedule}
             onChange={handleChange}
-            className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm ${
-              errors.district ? "border-red-500" : ""
-            }`}
-            placeholder="Enter district"
-          />
-          {errors.district && (
-            <span className="text-red-500 text-sm">{errors.district}</span>
-          )}
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm py-2 px-2"
+            required
+          >
+            <option value="">Select Schedule</option>
+            <option value="weekly">Weekly</option>
+            <option value="bi-weekly">Bi-weekly</option>
+            <option value="monthly">Monthly</option>
+          </select>
         </label>
-        <label className="block mb-4">
-          <span className="block text-gray-700">House Number</span>
-          <input
-            type="text"
-            name="address"
-            value={formData.address}
-            onChange={handleChange}
-            className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm ${
-              errors.address ? "border-red-500" : ""
-            }`}
-            placeholder="123 Main St"
-          />
-          {errors.address && (
-            <span className="text-red-500 text-sm">{errors.address}</span>
-          )}
-        </label>
-        <button
-          type="submit"
-          className="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600"
-        >
-          Schedule Pickup
+
+        <button type="button" onClick={fetchUserLocation} className="bg-blue-500 text-white py-2 px-4 rounded mt-4">
+          Fetch Location
+        </button>
+
+        <button type="submit" className="bg-green-500 text-white py-2 px-4 rounded mt-4 ml-2">
+          {editMode ? 'Update Schedule' : 'Add Schedule'}
         </button>
       </form>
+
+      <ul>
+        {schedules.map((schedule) => (
+          <li key={schedule._id} className="mb-4 p-4 border rounded-lg shadow">
+            <p><strong>Waste Type:</strong> {Array.isArray(schedule.wasteType) ? schedule.wasteType.join(', ') : ''}</p>
+            <p><strong>Schedule:</strong> {schedule.schedule}</p>
+            <button onClick={() => handleEdit(schedule)} className="bg-blue-500 text-white py-2 px-4 rounded mt-2 mr-2">
+              Edit
+            </button>
+            <button onClick={() => handleDelete(schedule._id)} className="bg-red-500 text-white py-2 px-4 rounded mt-2">
+              Delete
+            </button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
