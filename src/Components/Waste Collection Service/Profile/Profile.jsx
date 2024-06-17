@@ -122,7 +122,7 @@ const CompanyProfile = () => {
       {!editMode ? (
         <>
           <p>
-            <strong>Service Name:</strong> {company.serviceName}
+            <strong>Company Name:</strong> {company.serviceName}
           </p>
           <p>
             <strong>Contact Person:</strong> {company.contactPerson}
