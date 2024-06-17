@@ -107,7 +107,7 @@ function SidebarWaste() {
               {!isMinimized && <h1 className="text-xl">Route Mgt.</h1>}
             </div>
           </Link>
-          <Link to="/">
+          <Link to="/perfomance">
             <div
               className={`rounded-lg shadow-xl duration-500 flex items-center w-full px-5 py-2 mt-2 ${
                 isActive.tracker || isHovered.tracker
@@ -122,7 +122,7 @@ function SidebarWaste() {
               {!isMinimized && <h1 className="text-xl">Performance</h1>}
             </div>
           </Link>
-          <Link to="/profile">
+          <Link to="/companyprofile">
             <div
               className={`rounded-lg shadow-xl duration-500 flex items-center w-full px-5 py-2 mt-2 ${
                 isActive.profile || isHovered.profile

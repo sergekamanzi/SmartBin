@@ -12,6 +12,8 @@ import RouteManagementmerge from "./Components/Waste Collection Service/RouteMan
 import CreateaccountHoushold from "./Components/Gerstarted/Signup/CreateaccountHoushold";
 import CreateaccountWasteCollectionService from "./Components/Gerstarted/Signup/CreateaccountWasteCollectionService";
 import Schedulesmerge from "./Components/Waste Collection Service/Schedules/Schedulesmerge";
+import Performance from "./Components/Waste Collection Service/Performance/Performance";
+import ProfileCompany from "./Components/Waste Collection Service/Profile/ProfileCompany";
 const App = () => {
   return (
     <div className="overflow-x-hidden ">
@@ -19,17 +21,20 @@ const App = () => {
         <Route path="/" element={<Landingpage />} />
         <Route path="/login" element={<Signin />} />
         <Route path="/Signup" element={<CreateaccountHoushold />} />
-        <Route path="/SignupCompany" element={<CreateaccountWasteCollectionService />} />
+        <Route
+          path="/SignupCompany"
+          element={<CreateaccountWasteCollectionService />}
+        />
 
         <Route path="/home" element={<HouseholdMerge />} />
         <Route path="/profile" element={<ProfileSection />} />
-        <Route path="/recycling" element={<RecyclingMerge/>} />
+        <Route path="/recycling" element={<RecyclingMerge />} />
         <Route path="/schedule" element={<Wastemerge />} />
         <Route path="/dashboard" element={<WasteServiceMerge />} />
         <Route path="/RouteManagement" element={<RouteManagementmerge />} />
         <Route path="/schedules" element={<Schedulesmerge />} />
-
-
+        <Route path="/perfomance" element={<Performance />} />
+        <Route path="/companyprofile" element={<ProfileCompany />} />
       </Routes>
     </div>
   );
