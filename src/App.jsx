@@ -14,6 +14,8 @@ import CreateaccountWasteCollectionService from "./Components/Gerstarted/Signup/
 import Schedulesmerge from "./Components/Waste Collection Service/Schedules/Schedulesmerge";
 import Performance from "./Components/Waste Collection Service/Performance/Performance";
 import ProfileCompany from "./Components/Waste Collection Service/Profile/ProfileCompany";
+import AdminMerge from "./Components/Admin/AdminMerge";
+import UsersMerge from "./Components/Admin/Box/Users/UsersMerge";
 const App = () => {
   return (
     <div className="overflow-x-hidden ">
@@ -35,6 +37,8 @@ const App = () => {
         <Route path="/schedules" element={<Schedulesmerge />} />
         <Route path="/perfomance" element={<Performance />} />
         <Route path="/companyprofile" element={<ProfileCompany />} />
+        <Route path="/admin" element={<AdminMerge />} />
+        <Route path="/users" element={<UsersMerge />} />
       </Routes>
     </div>
   );

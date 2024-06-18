@@ -24,30 +24,28 @@ const LoginForm = () => {
     const { email, password } = formData;
 
     try {
-      const response = await axios.post(
-        'http://localhost:5000/api/login',
-        {
-          email,
-          password,
-        }
-      );
+      const response = await axios.post("http://localhost:5000/api/login", {
+        email,
+        password,
+      });
 
-      console.log('Login successful:', response.data);
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('userType', response.data.userType);
-      
+      console.log("Login successful:", response.data);
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("userType", response.data.userType);
+
       const userType = response.data.userType;
 
-      if (userType === 'service') {
-        navigate('/dashboard');
-      } else if (userType === 'household') {
-        navigate('/home');
+      if (userType === "service") {
+        navigate("/dashboard");
+      } else if (userType === "household") {
+        navigate("/home");
+      } else if (userType === "admin") {
+        navigate("/admin");
       } else {
-        navigate('/');
+        navigate("/");
       }
     } catch (error) {
-      console.error('Error logging in:', error.response.data);
-     
+      console.error("Error logging in:", error.response.data);
     }
   };
 
