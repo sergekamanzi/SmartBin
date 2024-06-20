@@ -12,10 +12,10 @@ const Profile = () => {
     street: '',
     district: '',
     phonenumber: '',
-    contactPerson: '', // Additional fields for service company
-    contactEmail: '', // Additional fields for service company
-    serviceArea: '', // Additional fields for service company
-    contactPhone: '', // Additional fields for service company
+    contactPerson: '', 
+    contactEmail: '', 
+    serviceArea: '', 
+    contactPhone: '', 
   });
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const Profile = () => {
         });
 
         setUser(response.data);
-        // Set formData based on userType
+     
         if (userType === 'household') {
           setFormData({
             username: response.data.username,

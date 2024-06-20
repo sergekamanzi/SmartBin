@@ -97,7 +97,7 @@ const RecyclingDashboard = () => {
           },
         }
       );
-      await fetchRecyclingLog(); // Fetch updated log after editing
+      await fetchRecyclingLog(); 
     } catch (error) {
       console.error(
         `Error editing recycling log entry with ID ${entryId}:`,

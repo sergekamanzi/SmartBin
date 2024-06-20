@@ -4,7 +4,7 @@ import SidebarWaste from "../SidebarWaste";
 import PerformanceLogManager from '../Performance/PerformanceLogsManager'
 const Performance = () => {
   return (
-    <div className="flex">
+    <div className="flex bg-[#eee] ">
       <SidebarWaste />
       <div>
         <PerformanceLogManager/>

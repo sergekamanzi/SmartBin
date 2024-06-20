@@ -10,18 +10,18 @@ const ServiceProfile = () => {
     district: '',
     password: '',
   });
-  const [editMode, setEditMode] = useState(false); // State to toggle edit mode
-  const token = localStorage.getItem('token'); // Retrieve token from localStorage
+  const [editMode, setEditMode] = useState(false); 
+  const token = localStorage.getItem('token'); 
 
   useEffect(() => {
-    // Fetch service profile on component mount
+    
     const fetchServiceProfile = async () => {
       try {
         const response = await axios.get('http://localhost:5000/api/service/profile', {
           headers: {
-            Authorization: `Bearer ${token}`, // Include token in request headers
+            Authorization: `Bearer ${token}`, 
           },
-        }); // Assuming backend route is '/api/profile'
+        }); 
         setService(response.data);
       } catch (error) {
         console.error('Error fetching service profile:', error);
@@ -29,7 +29,7 @@ const ServiceProfile = () => {
     };
 
     fetchServiceProfile();
-  }, [token]); // Include token in dependency array to refetch on token change
+  }, [token]); 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -47,16 +47,16 @@ const ServiceProfile = () => {
         service,
         {
           headers: {
-            Authorization: `Bearer ${token}`, // Include token in request headers
+            Authorization: `Bearer ${token}`, 
           },
         }
-      ); // Assuming backend route is '/api/profile' for update
+      ); 
       console.log('Updated service profile:', response.data);
-      setEditMode(false); // Exit edit mode after successful update
-      // Optionally, you can show a success message or update the UI
+      setEditMode(false); 
+      
     } catch (error) {
       console.error('Error updating service profile:', error);
-      // Handle error state or show error message
+      
     }
   };
 
@@ -65,7 +65,7 @@ const ServiceProfile = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-4">
+    <div className=" p-8">
       <h2 className="text-2xl font-bold mb-4">Service Profile</h2>
       {editMode ? (
         <form onSubmit={handleSubmit} className="space-y-4">

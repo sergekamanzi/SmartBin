@@ -4,7 +4,7 @@ import RecyclingDashboard from './RecyclingTracker'
 
 const RecyclingMerge = () => {
   return (
-    <div className='flex'>
+    <div className='flex bg-[#eee]'>
         <SidebarHousehold/>
         <div>
             <RecyclingDashboard/>

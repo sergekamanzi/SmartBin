@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import moment from 'moment';
+import moment from "moment";
+import { FaCirclePlus } from "react-icons/fa6";
+import { MdEdit } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
 const getUserIdFromToken = (token) => {
   if (!token) return null;
   const payload = JSON.parse(atob(token.split(".")[1]));
@@ -24,12 +27,12 @@ const PerformanceLogManager = () => {
     time: "",
   });
 
+  const token = localStorage.getItem("token");
+  const userId = getUserIdFromToken(token);
+
   useEffect(() => {
     fetchPerformanceLogs();
   }, []);
-
-  const token = localStorage.getItem("token");
-  const userId = getUserIdFromToken(token);
 
   const fetchPerformanceLogs = async () => {
     try {
@@ -95,12 +98,12 @@ const PerformanceLogManager = () => {
 
   const deletePerformanceLog = async (logId) => {
     try {
-      await axios.delete(
+      const response = await axios.delete(
         `http://localhost:5000/api/service/${userId}/performance-logs/${logId}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
-      Swal.fire("Success", "Performance log deleted successfully!", "success");
+      Swal.fire("Success", response.data.message, "success");
       fetchPerformanceLogs();
     } catch (error) {
       Swal.fire("Error", "Error deleting performance log", "error");
@@ -169,269 +172,382 @@ const PerformanceLogManager = () => {
   };
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 ">
       <h2 className="text-2xl font-bold mb-4">Performance Log Manager</h2>
+      <div className="flex items-center flex-col md:flex-row items-start space-y-4 md:space-y-0">
+        <div className="w-full md:w-1/2 px-4">
+          <h3 className="text-xl font-semibold mb-2">Add New Log</h3>
+          <div className="shadow-xl rounded-xl bg-white p-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="flex flex-col">
+                <label
+                  htmlFor="houseNumber"
+                  className="text-sm font-medium text-gray-700"
+                >
+                  House Number
+                </label>
+                <input
+                  type="text"
+                  id="houseNumber"
+                  name="houseNumber"
+                  placeholder="Enter House Number"
+                  value={newLog.houseNumber}
+                  onChange={handleChangeNewLog}
+                  required
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+                />
+              </div>
 
-      <h3 className="text-xl font-semibold mb-2">Add New Log</h3>
-      <div className="mb-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <input
-            type="text"
-            name="houseNumber"
-            placeholder="House Number"
-            value={newLog.houseNumber}
-            onChange={handleChangeNewLog}
-            required
-            className="input"
-          />
-          <div className="flex items-center space-x-4">
-            <label>
-              <input
-                type="checkbox"
-                name="wasteType"
-                value="General"
-                checked={newLog.wasteType.includes("General")}
-                onChange={(e) => handleCheckboxChange(e, "General")}
-                className="mr-2"
-              />
-              General
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                name="wasteType"
-                value="Organic"
-                checked={newLog.wasteType.includes("Organic")}
-                onChange={(e) => handleCheckboxChange(e, "Organic")}
-                className="mr-2"
-              />
-              Organic
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                name="wasteType"
-                value="Recyclables"
-                checked={newLog.wasteType.includes("Recyclables")}
-                onChange={(e) => handleCheckboxChange(e, "Recyclables")}
-                className="mr-2"
-              />
-              Recyclables
-            </label>
+              <div className="flex flex-col">
+                <label className="text-sm font-medium text-gray-700">
+                  Waste Type
+                </label>
+                <div className="mt-2 flex flex-col sm:flex-row sm:flex-wrap sm:gap-2">
+                  <label className="inline-flex items-center">
+                    <input
+                      type="checkbox"
+                      name="wasteType"
+                      value="General"
+                      checked={newLog.wasteType.includes("General")}
+                      onChange={(e) => handleCheckboxChange(e, "General")}
+                      className="mr-2 focus:ring-green-500 h-4 w-4 text-green-600 border-gray-300 rounded"
+                    />
+                    <span className="text-sm text-gray-900">General</span>
+                  </label>
+                  <label className="inline-flex items-center">
+                    <input
+                      type="checkbox"
+                      name="wasteType"
+                      value="Organic"
+                      checked={newLog.wasteType.includes("Organic")}
+                      onChange={(e) => handleCheckboxChange(e, "Organic")}
+                      className="mr-2 focus:ring-green-500 h-4 w-4 text-green-600 border-gray-300 rounded"
+                    />
+                    <span className="text-sm text-gray-900">Organic</span>
+                  </label>
+                  <label className="inline-flex items-center">
+                    <input
+                      type="checkbox"
+                      name="wasteType"
+                      value="Recyclables"
+                      checked={newLog.wasteType.includes("Recyclables")}
+                      onChange={(e) => handleCheckboxChange(e, "Recyclables")}
+                      className="mr-2 focus:ring-green-500 h-4 w-4 text-green-600 border-gray-300 rounded"
+                    />
+                    <span className="text-sm text-gray-900">Recyclables</span>
+                  </label>
+                </div>
+              </div>
+
+              <div className="flex flex-col md:-mt-5">
+                <label
+                  htmlFor="days"
+                  className="text-sm font-medium text-gray-700"
+                >
+                  Select Day
+                </label>
+                <select
+                  id="days"
+                  name="days"
+                  value={newLog.days}
+                  onChange={handleChangeNewLog}
+                  required
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+                >
+                  <option value="">Select Day</option>
+                  <option value="Monday">Monday</option>
+                  <option value="Tuesday">Tuesday</option>
+                  <option value="Wednesday">Wednesday</option>
+                  <option value="Thursday">Thursday</option>
+                  <option value="Friday">Friday</option>
+                  <option value="Saturday">Saturday</option>
+                  <option value="Sunday">Sunday</option>
+                </select>
+              </div>
+
+              <div className="flex flex-col">
+                <label
+                  htmlFor="date"
+                  className="text-sm font-medium text-gray-700"
+                >
+                  Date
+                </label>
+                <input
+                  type="date"
+                  id="date"
+                  name="date"
+                  value={newLogDateTime.date}
+                  onChange={handleChangeNewLogDateTime}
+                  required
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+                />
+              </div>
+
+              <div className="flex flex-col md:-mt-6">
+                <label
+                  htmlFor="time"
+                  className="text-sm font-medium text-gray-700"
+                >
+                  Time
+                </label>
+                <input
+                  type="time"
+                  id="time"
+                  name="time"
+                  value={newLogDateTime.time}
+                  onChange={handleChangeNewLogDateTime}
+                  required
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+                />
+              </div>
+            </div>
+
+            <button
+              onClick={addPerformanceLog}
+              className="btn text-green-500 text-5xl px-4 py-2 mt-4 md:ml-64 md:-mt-20"
+            >
+              <FaCirclePlus />
+            </button>
           </div>
-          <select
-            name="days"
-            value={newLog.days}
-            onChange={handleChangeNewLog}
-            required
-            className="input"
-          >
-            <option value="">Select Day</option>
-            <option value="Monday">Monday</option>
-            <option value="Tuesday">Tuesday</option>
-            <option value="Wednesday">Wednesday</option>
-            <option value="Thursday">Thursday</option>
-            <option value="Friday">Friday</option>
-            <option value="Saturday">Saturday</option>
-            <option value="Sunday">Sunday</option>
-          </select>
-
-          <input
-            type="date"
-            name="date"
-            value={newLogDateTime.date}
-            onChange={handleChangeNewLogDateTime}
-            required
-            className="input"
-          />
-          <input
-            type="time"
-            name="time"
-            value={newLogDateTime.time}
-            onChange={handleChangeNewLogDateTime}
-            required
-            className="input"
-          />
         </div>
-        <button onClick={addPerformanceLog} className="btn mt-4">
-          Add Log
-        </button>
+
+        {editLog && (
+          <div className="w-full md:w-1/2 px-4">
+            <h3 className="text-xl font-semibold mb-4">Edit Log</h3>
+            <div className="shadow-xl rounded-xl bg-white p-4">
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="flex flex-col">
+                  <label
+                    htmlFor="editHouseNumber"
+                    className="text-sm font-medium text-gray-700"
+                  >
+                    House Number
+                  </label>
+                  <input
+                    type="text"
+                    id="editHouseNumber"
+                    name="houseNumber"
+                    value={editLog.houseNumber}
+                    onChange={handleChangeEditLog}
+                    required
+                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+                  />
+                </div>
+
+                <div className="flex flex-col">
+                  <label className="text-sm font-medium text-gray-700">
+                    Waste Type
+                  </label>
+                  <div className="mt-2 flex flex-col sm:flex-row sm:flex-wrap sm:gap-2">
+                    <label className="inline-flex items-center">
+                      <input
+                        type="checkbox"
+                        name="wasteType"
+                        value="General"
+                        checked={editLog.wasteType.includes("General")}
+                        onChange={(e) =>
+                          handleCheckboxChange(e, "General", true)
+                        }
+                        className="mr-2 focus:ring-green-500 h-4 w-4 text-green-600 border-gray-300 rounded"
+                      />
+                      <span className="text-sm text-gray-900">General</span>
+                    </label>
+                    <label className="inline-flex items-center">
+                      <input
+                        type="checkbox"
+                        name="wasteType"
+                        value="Organic"
+                        checked={editLog.wasteType.includes("Organic")}
+                        onChange={(e) =>
+                          handleCheckboxChange(e, "Organic", true)
+                        }
+                        className="mr-2 focus:ring-green-500 h-4 w-4 text-green-600 border-gray-300 rounded"
+                      />
+                      <span className="text-sm text-gray-900">Organic</span>
+                    </label>
+                    <label className="inline-flex items-center">
+                      <input
+                        type="checkbox"
+                        name="wasteType"
+                        value="Recyclables"
+                        checked={editLog.wasteType.includes("Recyclables")}
+                        onChange={(e) =>
+                          handleCheckboxChange(e, "Recyclables", true)
+                        }
+                        className="mr-2 focus:ring-green-500 h-4 w-4 text-green-600 border-gray-300 rounded"
+                      />
+                      <span className="text-sm text-gray-900">Recyclables</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div className="flex flex-col">
+                  <label
+                    htmlFor="editDays"
+                    className="text-sm font-medium text-gray-700"
+                  >
+                    Days
+                  </label>
+                  <input
+                    type="number"
+                    id="editDays"
+                    name="days"
+                    value={editLog.days}
+                    onChange={handleChangeEditLog}
+                    required
+                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+                  />
+                </div>
+
+                <div className="flex flex-col">
+                  <label
+                    htmlFor="editDate"
+                    className="text-sm font-medium text-gray-700"
+                  >
+                    Date
+                  </label>
+                  <input
+                    type="date"
+                    id="editDate"
+                    name="date"
+                    value={editLogDateTime.date}
+                    onChange={handleChangeEditLogDateTime}
+                    required
+                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+                  />
+                </div>
+
+                <div className="flex flex-col">
+                  <label
+                    htmlFor="editTime"
+                    className="text-sm font-medium text-gray-700"
+                  >
+                    Time
+                  </label>
+                  <input
+                    type="time"
+                    id="editTime"
+                    name="time"
+                    value={editLogDateTime.time}
+                    onChange={handleChangeEditLogDateTime}
+                    required
+                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+                  />
+                </div>
+              </div>
+
+              <div className="flex -mt-10 ml-72">
+                <button
+                  onClick={updatePerformanceLog}
+                  className="btn bg-green-500 text-white px-4 py-2 mr-2"
+                >
+                  Update Log
+                </button>
+                <button
+                  onClick={handleCancelEdit}
+                  className="btn bg-gray-300 text-gray-800 px-4 py-2"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
-      <h3 className="text-xl font-semibold mb-2">Performance Logs</h3>
-      <ul className="divide-y divide-gray-200">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
-            <tr>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
-                House Number
-              </th>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
-                Waste Type
-              </th>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
-                Days
-              </th>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
-                Date
-              </th>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
-                Time
-              </th>
-              <th scope="col" className="relative px-6 py-3">
-                <span className="sr-only">Edit</span>
-              </th>
-              <th scope="col" className="relative px-6 py-3">
-                <span className="sr-only">Delete</span>
-              </th>
-            </tr>
-          </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
-            {logs.map((log) => (
-              <tr key={log._id} className="hover:bg-gray-100">
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">{log.houseNumber}</div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">
-                    {Array.isArray(log.wasteType)
-                      ? log.wasteType.join(", ")
-                      : log.wasteType}
-                  </div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">{log.days}</div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">
-                    {moment(log.date).format("YYYY-MM-DD")}
-                  </div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">{log.time}</div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                  <button
-                    onClick={() => handleEdit(log)}
-                    className="text-indigo-600 hover:text-indigo-900"
-                  >
-                    Edit
-                  </button>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                  <button
-                    onClick={() => deletePerformanceLog(log._id)}
-                    className="text-red-600 hover:text-red-900"
-                  >
-                    Delete
-                  </button>
-                </td>
+      <div className="overflow-x-auto mt-5">
+        <div className="align-middle inline-block min-w-full overflow-hidden border-b border-gray-200 shadow sm:rounded-lg">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-gray-50">
+              <tr>
+                <th
+                  scope="col"
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                >
+                  House Number
+                </th>
+                <th
+                  scope="col"
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                >
+                  Waste Type
+                </th>
+                <th
+                  scope="col"
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                >
+                  Days
+                </th>
+                <th
+                  scope="col"
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                >
+                  Date
+                </th>
+                <th
+                  scope="col"
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                >
+                  Time
+                </th>
+                <th scope="col" className="relative px-6 py-3">
+                  <span className="sr-only">Edit</span>
+                </th>
+                <th scope="col" className="relative px-6 py-3">
+                  <span className="sr-only">Delete</span>
+                </th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </ul>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {logs.map((log) => (
+                <tr key={log._id} className="hover:bg-gray-100">
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="text-sm text-gray-900">
+                      {log.houseNumber}
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="text-sm text-gray-900">
+                      {Array.isArray(log.wasteType)
+                        ? log.wasteType.join(", ")
+                        : log.wasteType}
+                    </div>
+                  </td>
 
-      {editLog && (
-        <div className="mt-6 p-4 bg-white rounded shadow">
-          <h3 className="text-xl font-semibold mb-2">Edit Log</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input
-              type="text"
-              name="houseNumber"
-              value={editLog.houseNumber}
-              onChange={handleChangeEditLog}
-              required
-              className="input"
-            />
-            <div className="flex items-center space-x-4">
-              <label>
-                <input
-                  type="checkbox"
-                  name="wasteType"
-                  value="General"
-                  checked={editLog.wasteType.includes("General")}
-                  onChange={(e) => handleCheckboxChange(e, "General", true)}
-                  className="mr-2"
-                />
-                General
-              </label>
-              <label>
-                <input
-                  type="checkbox"
-                  name="wasteType"
-                  value="Organic"
-                  checked={editLog.wasteType.includes("Organic")}
-                  onChange={(e) => handleCheckboxChange(e, "Organic", true)}
-                  className="mr-2"
-                />
-                Organic
-              </label>
-              <label>
-                <input
-                  type="checkbox"
-                  name="wasteType"
-                  value="Recyclables"
-                  checked={editLog.wasteType.includes("Recyclables")}
-                  onChange={(e) => handleCheckboxChange(e, "Recyclables", true)}
-                  className="mr-2"
-                />
-                Recyclables
-              </label>
-            </div>
-            <input
-              type="number"
-              name="days"
-              value={editLog.days}
-              onChange={handleChangeEditLog}
-              required
-              className="input"
-            />
-            <input
-              type="date"
-              name="date"
-              value={editLogDateTime.date}
-              onChange={handleChangeEditLogDateTime}
-              required
-              className="input"
-            />
-            <input
-              type="time"
-              name="time"
-              value={editLogDateTime.time}
-              onChange={handleChangeEditLogDateTime}
-              required
-              className="input"
-            />
-          </div>
-          <div className="flex mt-4">
-            <button
-              onClick={updatePerformanceLog}
-              className="btn btn-update mr-2"
-            >
-              Update Log
-            </button>
-            <button onClick={handleCancelEdit} className="btn btn-cancel">
-              Cancel
-            </button>
-          </div>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="text-sm text-gray-900">{log.days}</div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="text-sm text-gray-900">
+                      {moment(log.date).format("YYYY-MM-DD")}
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="text-sm text-gray-900">{log.time}</div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-right text-lg font-medium">
+                    <button
+                      onClick={() => handleEdit(log)}
+                      className="text-green-600 hover:text-green-900 "
+                    >
+                     <MdEdit />
+                    </button>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <button
+                      onClick={() => deletePerformanceLog(log._id)}
+                      className="text-red-600 hover:text-red-900"
+                    >
+                      <MdDelete />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-      )}
+      </div>
     </div>
   );
 };

@@ -13,7 +13,7 @@ const WasteCollectionServiceSignup = () => {
     serviceArea: "",
   });
 
-  const navigate = useNavigate(); // Initialize the useNavigate hook
+  const navigate = useNavigate(); 
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });

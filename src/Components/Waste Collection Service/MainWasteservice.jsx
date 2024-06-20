@@ -4,7 +4,7 @@ import axios from "axios";
 const MainWasteservice = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null); // State for error handling
+  const [error, setError] = useState(null); 
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -23,7 +23,7 @@ const MainWasteservice = () => {
           }
         );
 
-        setUser(response.data); // Assuming response.data is the user object
+        setUser(response.data); 
         setLoading(false);
       } catch (error) {
         console.error("Error fetching user profile:", error);

@@ -4,7 +4,7 @@ import axios from "axios";
 const ServiceAreas = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null); // New state for error handling
+  const [error, setError] = useState(null); 
 
   useEffect(() => {
     const fetchUserProfile = async () => {
