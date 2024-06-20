@@ -1,5 +1,6 @@
 import React from "react";
 
+
 const Footer = () => {
   return (
     <div className="flex items-end w-full min-h-screen bg-[#f5fef9]">
