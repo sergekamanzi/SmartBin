@@ -12,19 +12,21 @@ import RouteManagementmerge from "./Components/Waste Collection Service/RouteMan
 import CreateaccountHoushold from "./Components/Gerstarted/Signup/CreateaccountHoushold";
 import CreateaccountWasteCollectionService from "./Components/Gerstarted/Signup/CreateaccountWasteCollectionService";
 import Schedulesmerge from "./Components/Waste Collection Service/Schedules/Schedulesmerge";
-import Performance from "./Components/Waste Collection Service/Performance/Performance";
+
 import ProfileCompany from "./Components/Waste Collection Service/Profile/ProfileCompany";
 import AdminMerge from "./Components/Admin/AdminMerge";
 import UsersMerge from "./Components/Admin/Box/Users/UsersMerge";
+import Performance from "./Components/Waste Collection Service/Performance/Performance";
+
 const App = () => {
   return (
-    <div className="overflow-x-hidden ">
+    <div className="overflow-x-hidden">
       <Routes>
         <Route path="/" element={<Landingpage />} />
         <Route path="/login" element={<Signin />} />
-        <Route path="/Signup" element={<CreateaccountHoushold />} />
+        <Route path="/signup" element={<CreateaccountHoushold />} />
         <Route
-          path="/SignupCompany"
+          path="/signupCompany"
           element={<CreateaccountWasteCollectionService />}
         />
 
@@ -33,13 +35,23 @@ const App = () => {
         <Route path="/recycling" element={<RecyclingMerge />} />
         <Route path="/schedule" element={<Wastemerge />} />
         <Route path="/dashboard" element={<WasteServiceMerge />} />
-        <Route path="/RouteManagement" element={<RouteManagementmerge />} />
+        <Route path="/routeManagement" element={<RouteManagementmerge />} />
         <Route path="/schedules" element={<Schedulesmerge />} />
-        <Route path="/perfomance" element={<Performance />} />
+        <Route path="/perfomancelog" element={<Performance />} />
         <Route path="/companyprofile" element={<ProfileCompany />} />
         <Route path="/admin" element={<AdminMerge />} />
         <Route path="/users" element={<UsersMerge />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
+    </div>
+  );
+};
+
+const NotFound = () => {
+  return (
+    <div>
+      <h1>404 - Not Found</h1>
+      <p>The page you're looking for does not exist.</p>
     </div>
   );
 };

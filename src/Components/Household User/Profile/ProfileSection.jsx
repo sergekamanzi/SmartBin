@@ -5,7 +5,7 @@ import Profile from './Profile'
 const ProfileSection = () => {
   return (
     <div className='flex'>
-        <SidebarHousehold/>
+        <SidebarHousehold />
         <Profile/>
     </div>
   )

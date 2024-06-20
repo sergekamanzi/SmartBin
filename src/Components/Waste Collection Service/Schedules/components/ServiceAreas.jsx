@@ -52,7 +52,7 @@ const ServiceAreas = () => {
 
   return (
     <div className=" bg-[#fff] p-8  mt-6">
-      <p className="text-3xl font-bold "> {user.district}</p>
+      <p className="text-3xl font-bold ">Service Location: {user.district}</p>
     </div>
   );
 };

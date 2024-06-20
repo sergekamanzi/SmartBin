@@ -1,14 +1,13 @@
 import React from "react";
 
 import SidebarWaste from "../SidebarWaste";
-import PerformanceLogsManager from "./PerformanceLogsManager";
-
+import PerformanceLogManager from '../Performance/PerformanceLogsManager'
 const Performance = () => {
   return (
     <div className="flex">
       <SidebarWaste />
       <div>
-        <PerformanceLogsManager />
+        <PerformanceLogManager/>
       </div>
     </div>
   );
