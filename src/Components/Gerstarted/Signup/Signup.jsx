@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom"; 
 
 const HouseholdUserSignup = () => {
   const [formData, setFormData] = useState({
@@ -8,11 +8,11 @@ const HouseholdUserSignup = () => {
     email: "",
     password: "",
     street: "",
-    phonenumber: "", // Changed to match the state variable
+    phonenumber: "", 
     district: "",
   });
 
-  const navigate = useNavigate(); // Initialize the useNavigate hook
+  const navigate = useNavigate(); 
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });

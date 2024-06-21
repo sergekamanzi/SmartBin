@@ -4,7 +4,7 @@ import Users from './Users'
 
 const UsersMerge = () => {
   return (
-    <div className='flex'>
+    <div className='flex bg-[#eee] '>
       <SideAdmin/>
       <Users/>
     </div>

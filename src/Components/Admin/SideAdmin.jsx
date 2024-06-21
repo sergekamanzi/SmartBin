@@ -4,7 +4,6 @@ import { GoHomeFill } from "react-icons/go";
 import { FiLogOut, FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { IoIosSettings } from "react-icons/io";
 import { CgPerformance } from "react-icons/cg";
-import { MdRecycling, MdAccountCircle } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
 function SideAdmin() {
   const [isHovered, setIsHovered] = useState({});
@@ -21,7 +20,7 @@ function SideAdmin() {
 
   return (
     <div
-      className={`flex h-screen bg-[#064f32] ${
+      className={`flex md:fixed h-screen bg-[#064f32] ${
         isMinimized ? "w-20" : "w-56"
       } duration-300`}
     >

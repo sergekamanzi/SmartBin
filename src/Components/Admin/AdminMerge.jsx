@@ -4,7 +4,7 @@ import MainAdmin from './MainAdmin'
 
 const AdminMerge = () => {
   return (
-    <div className='flex'>
+    <div className='flex '>
       <SideAdmin/>
       <MainAdmin/>
 

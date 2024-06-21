@@ -4,7 +4,7 @@ import axios from "axios";
 const Dashboard = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null); // New state for error handling
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -14,8 +14,7 @@ const Dashboard = () => {
           throw new Error("User not authenticated");
         }
 
-        // Assuming 'usertype' is a variable holding the user's type (e.g., 'household', 'admin', etc.)
-        const usertype = 'household'; // Replace with your logic to get the user type
+        const usertype = "household";
 
         const response = await axios.get(
           `http://localhost:5000/api/${usertype}/profile/`,
@@ -30,8 +29,8 @@ const Dashboard = () => {
         setLoading(false);
       } catch (error) {
         console.error("Error fetching user profile:", error);
-        setError("Error fetching user profile. Please try again later."); // Set error state
-        setLoading(false); // Ensure loading state is updated even in case of error
+        setError("Error fetching user profile. Please try again later.");
+        setLoading(false);
       }
     };
 
