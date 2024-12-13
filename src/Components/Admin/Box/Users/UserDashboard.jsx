@@ -1,4 +1,3 @@
-// src/UserDashboard.js
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -9,12 +8,10 @@ const UserDashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    // Retrieve token and userType from localStorage
     const token = localStorage.getItem("token");
     const userType = localStorage.getItem("userType");
 
     if (!token || !userType) {
-      // Handle case where token or userType is missing
       setError("User not authenticated. Please log in.");
       return;
     }
@@ -35,7 +32,6 @@ const UserDashboard = () => {
         setHouseholdCount(householdUsers.length);
         setServiceCount(services.length);
 
-        // Check if logged-in user is admin based on userType
         if (userType === "admin") {
           setIsAdmin(true);
         }
@@ -52,17 +48,21 @@ const UserDashboard = () => {
   }, []);
 
   if (error) {
-    return <div>{error}</div>;
+    return <div className="text-red-600">{error}</div>;
   }
 
   return (
-    <div>
-      <h1>User Dashboard</h1>
-      <p>Number of Household Users: {householdCount}</p>
-      <p>Number of Waste Collection Service Users: {serviceCount}</p>
-      {isAdmin && (
-        <p style={{ color: "green" }}>You are logged in as an admin.</p>
-      )}
+    <div className="p-6">
+      <div className=" flex gap-5 bg-white  rounded-lg ">
+        <p className="text-lg mb-4">
+          Number of Users:{" "}
+          <span className="font-semibold">{householdCount}</span>
+        </p>
+        <p className="text-lg mb-4">
+          Number of Companies :{" "}
+          <span className="font-semibold">{serviceCount}</span>
+        </p>
+      </div>
     </div>
   );
 };

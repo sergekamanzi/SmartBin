@@ -4,8 +4,8 @@ import Profile from './Profile'
 
 const ProfileSection = () => {
   return (
-    <div className='flex'>
-        <SidebarHousehold/>
+    <div className='flex bg-[#eee] '>
+        <SidebarHousehold />
         <Profile/>
     </div>
   )

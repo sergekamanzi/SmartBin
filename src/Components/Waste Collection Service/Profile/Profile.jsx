@@ -1,227 +1,177 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import Swal from "sweetalert2";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-const CompanyProfile = () => {
-  const [company, setCompany] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [editMode, setEditMode] = useState(false);
-  const [formData, setFormData] = useState({
-    serviceName: "",
-    contactPerson: "",
-    contactEmail: "",
-    contactPhone: "",
-    district: "",
-    serviceArea: "",
+const ServiceProfile = () => {
+  const [service, setService] = useState({
+    serviceName: '',
+    contactPerson: '',
+    email: '',
+    contactPhone: '',
+    district: '',
+    password: '',
   });
+  const [editMode, setEditMode] = useState(false); 
+  const token = localStorage.getItem('token'); 
 
   useEffect(() => {
-    const fetchCompanyProfile = async () => {
+    
+    const fetchServiceProfile = async () => {
       try {
-        const token = localStorage.getItem("token");
-
-        if (!token) {
-          throw new Error("User not authenticated");
-        }
-
-        const response = await axios.get(
-          "http://localhost:5000/api/service/profile",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        setCompany(response.data);
-        setFormData({
-          serviceName: response.data.serviceName,
-          contactPerson: response.data.contactPerson,
-          contactEmail: response.data.contactEmail,
-          contactPhone: response.data.contactPhone,
-          district: response.data.district,
-          serviceArea: response.data.serviceArea.join(", "),
-        });
+        const response = await axios.get('http://localhost:5000/api/service/profile', {
+          headers: {
+            Authorization: `Bearer ${token}`, 
+          },
+        }); 
+        setService(response.data);
       } catch (error) {
-        console.error("Error fetching company profile:", error);
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: "Failed to fetch company profile. Please log in again.",
-        });
-      } finally {
-        setLoading(false);
+        console.error('Error fetching service profile:', error);
       }
     };
 
-    fetchCompanyProfile();
-  }, []);
+    fetchServiceProfile();
+  }, [token]); 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
+    setService((prevService) => ({
+      ...prevService,
       [name]: value,
-    });
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      const token = localStorage.getItem("token");
-
-      if (!token) {
-        throw new Error("User not authenticated");
-      }
-
       const response = await axios.put(
-        "http://localhost:5000/api/service/profile",
-        {
-          ...formData,
-          serviceArea: formData.serviceArea
-            .split(",")
-            .map((area) => area.trim()),
-        },
+        'http://localhost:5000/api/service/profile',
+        service,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${token}`, 
           },
         }
-      );
-
-      setCompany(response.data);
-      setEditMode(false);
-      Swal.fire({
-        icon: "success",
-        title: "Success",
-        text: "Profile updated successfully",
-      });
+      ); 
+      console.log('Updated service profile:', response.data);
+      setEditMode(false); 
+      
     } catch (error) {
-      console.error("Error updating profile:", error);
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Failed to update profile. Please try again.",
-      });
+      console.error('Error updating service profile:', error);
+      
     }
   };
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (!company) {
-    return <div>No company data available</div>;
-  }
+  const toggleEditMode = () => {
+    setEditMode(!editMode);
+  };
 
   return (
-    <div className="max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg mt-4">
-      <h2 className="text-2xl font-semibold mb-4">Company Profile</h2>
-
-      {!editMode ? (
-        <>
-          <p>
-            <strong>Company Name:</strong> {company.serviceName}
-          </p>
-          <p>
-            <strong>Contact Person:</strong> {company.contactPerson}
-          </p>
-          <p>
-            <strong>Contact Email:</strong> {company.contactEmail}
-          </p>
-          <p>
-            <strong>Contact Phone:</strong> {company.contactPhone}
-          </p>
-          <p>
-            <strong>District:</strong> {company.district}
-          </p>
-
-          <button
-            onClick={() => setEditMode(true)}
-            className="bg-blue-500 text-white py-2 px-4 rounded mt-4"
-          >
-            Edit Profile
-          </button>
-        </>
-      ) : (
-        <form onSubmit={handleSubmit}>
-          <label className="block mb-4">
+    <div className=" p-8">
+      <h2 className="text-2xl font-bold mb-4">Service Profile</h2>
+      {editMode ? (
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block mb-1">Service Name:</label>
             <input
               type="text"
               name="serviceName"
-              value={formData.serviceName}
+              value={service.serviceName}
               onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm py-2 px-2"
-              placeholder="Service Name"
+              className="w-full border rounded px-3 py-2"
               required
             />
-          </label>
+          </div>
 
-          <label className="block mb-4">
+          <div>
+            <label className="block mb-1">Contact Person:</label>
             <input
               type="text"
               name="contactPerson"
-              value={formData.contactPerson}
+              value={service.contactPerson}
               onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm py-2 px-2"
-              placeholder="Contact Person"
+              className="w-full border rounded px-3 py-2"
               required
             />
-          </label>
+          </div>
 
-          <label className="block mb-4">
+          <div>
+            <label className="block mb-1">Email:</label>
             <input
               type="email"
-              name="contactEmail"
-              value={formData.contactEmail}
+              name="email"
+              value={service.email}
               onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm py-2 px-2"
-              placeholder="Contact Email"
+              className="w-full border rounded px-3 py-2"
               required
             />
-          </label>
+          </div>
 
-          <label className="block mb-4">
+          <div>
+            <label className="block mb-1">Contact Phone:</label>
             <input
               type="text"
               name="contactPhone"
-              value={formData.contactPhone}
+              value={service.contactPhone}
               onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm py-2 px-2"
-              placeholder="Contact Phone"
+              className="w-full border rounded px-3 py-2"
               required
             />
-          </label>
+          </div>
 
-          <label className="block mb-4">
+          <div>
+            <label className="block mb-1">District:</label>
             <input
               type="text"
               name="district"
-              value={formData.district}
+              value={service.district}
               onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm py-2 px-2"
-              placeholder="District"
+              className="w-full border rounded px-3 py-2"
               required
             />
-          </label>
+          </div>
 
-          <button
-            type="submit"
-            className="bg-green-500 text-white py-2 px-4 rounded mt-4"
-          >
-            Save Changes
-          </button>
-          <button
-            onClick={() => setEditMode(false)}
-            className="bg-red-500 text-white py-2 px-4 rounded mt-4 ml-2"
-          >
-            Cancel
-          </button>
+          <div className="flex justify-end">
+            <button
+              type="submit"
+              className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mr-2"
+            >
+              Update Profile
+            </button>
+            <button
+              type="button"
+              onClick={toggleEditMode}
+              className="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded"
+            >
+              Cancel
+            </button>
+          </div>
         </form>
+      ) : (
+        <div className="space-y-2">
+          <p>
+            <strong>Service Name:</strong> {service.serviceName}
+          </p>
+          <p>
+            <strong>Contact Person:</strong> {service.contactPerson}
+          </p>
+          <p>
+            <strong>Email:</strong> {service.email}
+          </p>
+          <p>
+            <strong>Contact Phone:</strong> {service.contactPhone}
+          </p>
+          <p>
+            <strong>District:</strong> {service.district}
+          </p>
+          <button
+            onClick={toggleEditMode}
+            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+          >
+            Edit Profile
+          </button>
+        </div>
       )}
     </div>
   );
 };
 
-export default CompanyProfile;
+export default ServiceProfile;

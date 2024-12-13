@@ -1,16 +1,16 @@
-import React from 'react'
-import SidebarHousehold from '../../SidebarHousehold'
-import ScheduleForm from './Wasteshedule'
+import React from 'react';
+import SidebarHousehold from '../../SidebarHousehold';
+import ScheduleForm from './Wasteshedule';
 
 const Wastemerge = () => {
   return (
-    <div className='flex'>
-        <SidebarHousehold/>
-        <div>
-            <ScheduleForm/>
-        </div>
+    <div className='flex  md:flex-row bg-[#eee] '>
+      <SidebarHousehold />
+      <div className='flex-1'>
+        <ScheduleForm />
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Wastemerge
+export default Wastemerge;

@@ -3,7 +3,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { MdModeEdit, MdDelete } from "react-icons/md";
 import ScheduleModal from "./ScheduleModal";
-
+import { FaPlus } from "react-icons/fa";
 const WasteCollectionSchedule = () => {
   const [schedules, setSchedules] = useState([]);
   const [sortedSchedules, setSortedSchedules] = useState([]);
@@ -206,68 +206,73 @@ const WasteCollectionSchedule = () => {
   };
 
   return (
-    <div className="bg-white p-8 rounded-lg shadow-lg mt-4">
-      <h2 className="text-2xl font-semibold mb-4">Waste Collection Schedules</h2>
+    <div>
+      <div className="bg-white p-4 sm:p-8 rounded-lg shadow-2xl border-gray-950  mt-4">
+        <h2 className="text-2xl font-semibold mb-4">
+          Waste Collection Schedules
+        </h2>
+
+        <div className="overflow-x-auto  ">
+          <table className="min-w-full bg-white border border-gray-200">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th className="py-2 px-4 border-b">Waste Type</th>
+                <th className="py-2 px-4 border-b">Schedule</th>
+                <th className="py-2 px-4 border-b">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sortedSchedules.map((schedule, index) => (
+                <tr
+                  key={schedule._id}
+                  className={`text-[20px] text-center h-[34px] ${
+                    index % 2 === 0 ? "bg-[#d6f1e1]" : ""
+                  }`}
+                >
+                  <td>{index + 1}</td>
+                  <td className="py-2 px-4">
+                    {Array.isArray(schedule.wasteType)
+                      ? schedule.wasteType.join(", ")
+                      : ""}
+                  </td>
+                  <td className="py-2 px-4">{schedule.schedule}</td>
+                  <td className="py-2 px-4 flex justify-center space-x-2">
+                    <button
+                      onClick={() => handleEdit(schedule)}
+                      className="text-black text-lg py-1 px-2 rounded"
+                    >
+                      <MdModeEdit />
+                    </button>
+                    <button
+                      onClick={() => handleDelete(schedule._id)}
+                      className=" text-black text-lg py-1 px-2 rounded"
+                    >
+                      <MdDelete />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <ScheduleModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onSubmit={handleSubmit}
+          formData={formData}
+          handleChange={handleChange}
+          fetchUserLocation={fetchUserLocation}
+          editMode={editMode}
+        />
+      </div>
       <button
         onClick={openModal}
-        className="bg-green-500 text-white py-2 px-4 rounded mb-4"
+        className="bg-green-500 text-4xl text-white py-2 px-4 rounded-full shadow-2xl absolute right-10 bottom-14"
       >
-        Add Schedule
+        <FaPlus />
       </button>
-
-      <div>
-        
-        <table className="min-w-full bg-white border border-gray-200">
-          <thead>
-            <tr>
-              <th className="py-2 px-4 border-b">Waste Type</th>
-              <th className="py-2 px-4 border-b">Schedule</th>
-              <th className="py-2 px-4 border-b">Actions</th>
-              
-            </tr>
-          </thead>
-          <tbody>
-            {sortedSchedules.map((schedule, index) => (
-              <tr
-                key={schedule._id}
-                className={`text-[11px] h-[34px] ${index % 2 === 0 ? "bg-[#d6f1e1]" : ""}`}
-              >
-                <td className="py-2 px-4">
-                  {Array.isArray(schedule.wasteType)
-                    ? schedule.wasteType.join(", ")
-                    : ""}
-                </td>
-                <td className="py-2 px-4">{schedule.schedule}</td>
-                <td className="py-2 px-4 flex space-x-2">
-                  <button
-                    onClick={() => handleEdit(schedule)}
-                    className="text-black text-lg py-1 px-2 rounded"
-                  >
-                    <MdModeEdit />
-                  </button>
-                  <button
-                    onClick={() => handleDelete(schedule._id)}
-                    className=" text-black text-lg py-1 px-2 rounded"
-                  >
-                    <MdDelete />
-                  </button>
-                </td>
-                
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      <ScheduleModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onSubmit={handleSubmit}
-        formData={formData}
-        handleChange={handleChange}
-        fetchUserLocation={fetchUserLocation}
-        editMode={editMode}
-      />
     </div>
   );
 };

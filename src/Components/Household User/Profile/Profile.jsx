@@ -12,10 +12,10 @@ const Profile = () => {
     street: '',
     district: '',
     phonenumber: '',
-    contactPerson: '', // Additional fields for service company
-    contactEmail: '', // Additional fields for service company
-    serviceArea: [], // Additional fields for service company
-    contactPhone: '', // Additional fields for service company
+    contactPerson: '', 
+    contactEmail: '', 
+    serviceArea: '', 
+    contactPhone: '', 
   });
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const Profile = () => {
         });
 
         setUser(response.data);
-        // Set formData based on userType
+     
         if (userType === 'household') {
           setFormData({
             username: response.data.username,
@@ -43,24 +43,9 @@ const Profile = () => {
             street: response.data.street,
             district: response.data.district,
             phonenumber: response.data.phonenumber,
-            contactPerson: '', // Reset additional fields for service company
-            contactEmail: '', // Reset additional fields for service company
-            serviceArea: [], // Reset additional fields for service company
-            contactPhone: '', // Reset additional fields for service company
+            
           });
-        } else if (userType === 'service') {
-          setFormData({
-            username: response.data.username,
-            email: response.data.email,
-            street: response.data.street,
-            district: response.data.district,
-            phonenumber: response.data.phonenumber,
-            contactPerson: response.data.contactPerson,
-            contactEmail: response.data.contactEmail,
-            serviceArea: response.data.serviceArea,
-            contactPhone: response.data.contactPhone,
-          });
-        }
+        } 
       } catch (error) {
         console.error('Error fetching user profile:', error);
         Swal.fire({
@@ -119,160 +104,109 @@ const Profile = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="text-center mt-8">Loading...</div>;
   }
 
   if (!user) {
-    return <div>No user data available</div>;
+    return <div className="text-center mt-8">No user data available</div>;
   }
 
   return (
-    <div className="max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg mt-4">
-      <h2 className="text-2xl font-semibold mb-4">Profile</h2>
+    <div className=" bg-white ml-8 pl-5 rounded-lg shadow-2xl mt-8 mb-20 w-[500px]   ">
+      <h2 className="text-3xl font-semibold my-6 ">Profile</h2>
 
       {!editMode ? (
-        <>
-          <p><strong>Username:</strong> {user.username}</p>
-          <p><strong>Email:</strong> {user.email}</p>
-          <p><strong>Street:</strong> {user.street}</p>
-          <p><strong>District:</strong> {user.district}</p>
-          <p><strong>Phone Number:</strong> {user.phonenumber}</p>
-          {user.userType === 'service' && (
-            <>
-              <p><strong>Contact Person:</strong> {user.contactPerson}</p>
-              <p><strong>Contact Email:</strong> {user.contactEmail}</p>
-              <p><strong>Service Area:</strong> {user.serviceArea.join(', ')}</p>
-              <p><strong>Contact Phone:</strong> {user.contactPhone}</p>
-            </>
-          )}
-          <button onClick={() => setEditMode(true)} className="bg-blue-500 text-white py-2 px-4 rounded mt-4">
-            Edit Profile
-          </button>
-        </>
+        <div className="space-y-4">
+          <ProfileField label="Username" value={user.username} />
+          <ProfileField label="Email" value={user.email} />
+          <ProfileField label="Street" value={user.street} />
+          <ProfileField label="District" value={user.district} />
+          <ProfileField label="Phone Number" value={user.phonenumber} />
+          
+          <div className="">
+            <button onClick={() => setEditMode(true)} className="bg-blue-500 text-white py-2 px-4 rounded mt-4">
+              Edit Profile
+            </button>
+          </div>
+        </div>
       ) : (
-        <form onSubmit={handleSubmit}>
-          <label className="block mb-4">
-            <input
-              type="text"
-              name="username"
-              value={formData.username}
-              onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm py-2 px-2"
-              placeholder="Username"
-              required
-            />
-          </label>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <ProfileInput
+            label="Username"
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
+            placeholder="Username"
+            required
+          />
+          <ProfileInput
+            label="Email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Email"
+            required
+          />
+          <ProfileInput
+            label="Street"
+            name="street"
+            value={formData.street}
+            onChange={handleChange}
+            placeholder="Street"
+            required
+          />
+          <ProfileInput
+            label="District"
+            name="district"
+            value={formData.district}
+            onChange={handleChange}
+            placeholder="District"
+            required
+          />
+          <ProfileInput
+            label="Phone Number"
+            name="phonenumber"
+            value={formData.phonenumber}
+            onChange={handleChange}
+            placeholder="Phone Number"
+            required
+          />
+          
 
-          <label className="block mb-4">
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm py-2 px-2"
-              placeholder="Email"
-              required
-            />
-          </label>
-
-          <label className="block mb-4">
-            <input
-              type="text"
-              name="street"
-              value={formData.street}
-              onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm py-2 px-2"
-              placeholder="Street"
-              required
-            />
-          </label>
-
-          <label className="block mb-4">
-            <input
-              type="text"
-              name="district"
-              value={formData.district}
-              onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm py-2 px-2"
-              placeholder="District"
-              required
-            />
-          </label>
-
-          <label className="block mb-4">
-            <input
-              type="text"
-              name="phonenumber"
-              value={formData.phonenumber}
-              onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm py-2 px-2"
-              placeholder="Phone Number"
-              required
-            />
-          </label>
-
-          {user.userType === 'service' && (
-            <>
-              <label className="block mb-4">
-                <input
-                  type="text"
-                  name="contactPerson"
-                  value={formData.contactPerson}
-                  onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm py-2 px-2"
-                  placeholder="Contact Person"
-                  required
-                />
-              </label>
-
-              <label className="block mb-4">
-                <input
-                  type="email"
-                  name="contactEmail"
-                  value={formData.contactEmail}
-                  onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm py-2 px-2"
-                  placeholder="Contact Email"
-                  required
-                />
-              </label>
-
-              <label className="block mb-4">
-                <input
-                  type="text"
-                  name="serviceArea"
-                  value={formData.serviceArea}
-                  onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm py-2 px-2"
-                  placeholder="Service Area (comma-separated)"
-                  required
-                />
-              </label>
-
-              <label className="block mb-4">
-                <input
-                  type="text"
-                  name="contactPhone"
-                  value={formData.contactPhone}
-                  onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm py-2 px-2"
-                  placeholder="Contact Phone"
-                  required
-                />
-              </label>
-            </>
-          )}
-
-          <button type="submit" className="bg-green-500 text-white py-2 px-4 rounded mt-4">
-            Save Changes
-          </button>
-          <button onClick={() => setEditMode(false)} className="bg-red-500 text-white py-2 px-4 rounded mt-4 ml-2">
-            Cancel
-          </button>
+          <div className="flex justify-center">
+            <button type="submit" className="bg-green-500 text-white py-2 px-4 rounded mt-4">
+              Save Changes
+            </button>
+            <button onClick={() => setEditMode(false)} className="bg-red-500 text-white py-2 px-4 rounded mt-4 ml-2">
+              Cancel
+            </button>
+          </div>
         </form>
       )}
     </div>
   );
 };
+
+const ProfileField = ({ label, value }) => (
+  <div>
+    <p className="font-semibold">{label}:</p>
+    <p>{value}</p>
+  </div>
+);
+
+const ProfileInput = ({ label, name, value, onChange, placeholder, required }) => (
+  <div>
+    <label className="block mb-1">{label}</label>
+    <input
+      type="text"
+      name={name}
+      value={value}
+      onChange={onChange}
+      placeholder={placeholder}
+      required={required}
+      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm py-2 px-2"
+    />
+  </div>
+);
 
 export default Profile;

@@ -4,7 +4,7 @@ import axios from "axios";
 const ServiceAreas = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null); // New state for error handling
+  const [error, setError] = useState(null); 
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -52,7 +52,7 @@ const ServiceAreas = () => {
 
   return (
     <div className=" bg-[#fff] p-8  mt-6">
-      <p className="text-3xl font-bold "> {user.district}</p>
+      <p className="text-3xl font-bold ">Service Location: {user.district}</p>
     </div>
   );
 };
